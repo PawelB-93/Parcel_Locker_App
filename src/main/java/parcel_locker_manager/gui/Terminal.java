@@ -78,7 +78,7 @@ public class Terminal {
                 "## PARCEL LOCKER MANAGER ##\n" +
                 "###########################\n" +
                 "     SELECT OPERATION:\n" +
-                "\n[1]. Add Parcel Locker\n" +
+                "\n[1]. ADD PARCEL LOCKER\n" +
                 "[2]. REMOVE PARCEL LOCKER\n" +
                 "[3]. DISPLAY ALL PARCEL LOCKERS\n" +
                 "[4]. DISPLAY PARCEL LOCKER BY CITY NAME\n" +

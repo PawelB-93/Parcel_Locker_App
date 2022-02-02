@@ -55,8 +55,8 @@ public class Validation {
 
     public boolean updateParcelValidation(String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
         if (isNotBlank(name) && isNameValid(name) && size != null && isNotBlank(String.valueOf(weight))
-                && isNotBlank(recipient) && isNotNull(recipient) && isPostalCodeValid(sender) && isNotNull(sender)
-                && isNotBlank(senderLocker) && isPostalCodeValid(recipientLocker) && state != null) {
+                && isNotBlank(recipient) && isNotNull(recipient) && isNotNull(sender)
+                && isNotBlank(senderLocker)&& state != null) {
             return true;
         }
         System.out.println("INCORRECT FORMAT OR EMPTY!");

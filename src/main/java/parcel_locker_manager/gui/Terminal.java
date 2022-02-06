@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Terminal {
     private final Scanner scanner = new Scanner(System.in);
-    TerminalCommands terminalCommands = new TerminalCommands();
+    private final TerminalCommands terminalCommands = new TerminalCommands();
 
     public void initManager() {
         getCommands();

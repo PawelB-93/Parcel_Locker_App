@@ -14,7 +14,6 @@ public class ParcelLockerManager {
 
     public void addLocker(ParcelLocker parcelLocker) {
         parcelLockers.add(parcelLocker);
-        System.out.println("PARCEL LOCKER ADDED");
     }
 
 
@@ -28,16 +27,14 @@ public class ParcelLockerManager {
         }
     }
 
-    public void displayAllLockers() {
-        System.out.println(!parcelLockers.isEmpty() ? parcelLockers : "NO LOCKERS FOUND!");
+    public List<ParcelLocker> displayAllLockers() {
+        return parcelLockers;
     }
 
-    public void displayLockersByCityName(String cityName) {
-        List<ParcelLocker> lockers = parcelLockers.stream()
+    public List<ParcelLocker> displayLockersByCityName(String cityName) {
+        return parcelLockers.stream()
                 .filter(parcelLocker -> parcelLocker.getAddress().getCity().equalsIgnoreCase(cityName))
                 .collect(Collectors.toList());
-        System.out.println(!lockers.isEmpty() ? lockers : "NO LOCKERS FOUND!");
-
     }
 
     public void updateLocker(String id, String name, String street, String city, String postalCode) {
@@ -70,6 +67,7 @@ public class ParcelLockerManager {
         for (Parcel parcel : parcels) {
             if (uuid.equals(parcel.getId())) {
                 parcelToRemove = parcel;
+                break;
             }
         }
         if (parcelToRemove != null) {
@@ -80,9 +78,10 @@ public class ParcelLockerManager {
         }
     }
 
-    public void displayAllParcelsByLocker(String id) {
-        List<Parcel> parcelsToDisplay = parcels.stream().filter(parcel -> id.equals(parcel.getSenderLocker().getId())).collect(Collectors.toList());
-        System.out.println(!parcelsToDisplay.isEmpty() ? parcelsToDisplay : "NO PARCELS FOUND!");
+
+
+    public List<Parcel> displayAllParcelsByLocker(String id) {
+        return parcels.stream().filter(parcel -> id.equals(parcel.getSenderLocker().getId())).collect(Collectors.toList());
     }
 
     public void updateParcel(String id, String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {

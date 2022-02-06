@@ -1,10 +1,8 @@
 package parcel_locker_manager.service;
 
-import parcel_locker_manager.models.Address;
-import parcel_locker_manager.models.ParcelLocker;
-import parcel_locker_manager.models.Size;
-import parcel_locker_manager.models.State;
+import parcel_locker_manager.models.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalCommands {
@@ -26,6 +24,7 @@ public class TerminalCommands {
         String postalCode = scanner.nextLine();
         if (validation.addLockerValidation(id, name, street, city, postalCode)) {
             parcelLockerManager.addLocker(new ParcelLocker(id, name, new Address(street, city, postalCode)));
+            System.out.println("PARCEL LOCKER ADDED");
         }
     }
 
@@ -38,7 +37,8 @@ public class TerminalCommands {
     public void displayLockersByCityName() {
         System.out.println("ENTER CITY NAME:");
         String cityName = scanner.nextLine();
-        parcelLockerManager.displayLockersByCityName(cityName);
+        List<ParcelLocker> parcelLockers = parcelLockerManager.displayLockersByCityName(cityName);
+        System.out.println(!parcelLockers.isEmpty() ? parcelLockers : "NO LOCKERS FOUND!");
     }
 
     public void updateParcelLocker() {
@@ -119,11 +119,14 @@ public class TerminalCommands {
     public void displayAllParcelsByLocker() {
         System.out.println("SELECT ID:");
         String id = scanner.nextLine();
-        parcelLockerManager.displayAllParcelsByLocker(id);
+        List<Parcel> parcels = parcelLockerManager.displayAllParcelsByLocker(id);
+        System.out.println(!parcels.isEmpty() ? parcels : "NO PARCELS FOUND!");
+
     }
 
     public void displayAllLockers() {
-        parcelLockerManager.displayAllLockers();
+        List<ParcelLocker> parcelLockers = parcelLockerManager.displayAllLockers();
+        System.out.println(!parcelLockers.isEmpty() ? parcelLockers : "NO LOCKERS FOUND!");
     }
 
     public void updateParcel() {

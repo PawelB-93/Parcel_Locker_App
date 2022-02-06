@@ -1,8 +1,10 @@
 package parcel_locker_manager.service;
 
+import parcel_locker_manager.models.ParcelLocker;
 import parcel_locker_manager.models.Size;
 import parcel_locker_manager.models.State;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,7 +58,7 @@ public class Validation {
     public boolean updateParcelValidation(String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
         if (isNotBlank(name) && isNameValid(name) && size != null && isNotBlank(String.valueOf(weight))
                 && isNotBlank(recipient) && isNotNull(recipient) && isNotNull(sender)
-                && isNotBlank(senderLocker)&& state != null) {
+                && isNotBlank(senderLocker) && state != null) {
             return true;
         }
         System.out.println("INCORRECT FORMAT OR EMPTY!");
@@ -78,5 +80,13 @@ public class Validation {
         }
         return true;
     }
+
+//    boolean isLockersListEmpty(List<ParcelLocker>parcelLockers){
+//        if (parcelLockers.isEmpty()){
+//            System.out.println("NO LOCKERS FOUND!");
+//            return false;
+//        }
+//        return true;
+//    }
 
 }

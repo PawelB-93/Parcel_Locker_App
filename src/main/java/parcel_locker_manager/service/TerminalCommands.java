@@ -23,15 +23,15 @@ public class TerminalCommands {
         System.out.println("ADD POSTAL CODE:");
         String postalCode = scanner.nextLine();
         if (validation.addLockerValidation(id, name, street, city, postalCode)) {
-            parcelLockerManager.addLocker(new ParcelLocker(id, name, new Address(street, city, postalCode)));
-            System.out.println("PARCEL LOCKER ADDED");
+            parcelLockerManager.addLocker(id, name, new Address(street, city, postalCode));
+            System.out.println("LOCKER ADDED");
         }
     }
 
     public void removeParcelLocker() {
         System.out.println("ENTER LOCKER ID:");
         String id = scanner.nextLine();
-        parcelLockerManager.removeLocker(id);
+        System.out.println(parcelLockerManager.removeLocker(id) != null ? "LOCKER REMOVED" : "NO LOCKER OF ID => " + id + " <= FOUND!");
     }
 
     public void displayLockersByCityName() {
@@ -53,7 +53,7 @@ public class TerminalCommands {
         System.out.println("UPDATE POSTAL CODE:");
         String postalCode = scanner.nextLine();
         if (validation.updateLockerValidation(name, street, city, postalCode)) {
-            parcelLockerManager.updateLocker(id, name, street, city, postalCode);
+            System.out.println(parcelLockerManager.updateLocker(id, name, street, city, postalCode) != null ? "LOCKER UPDATED" : "NO LOCKER OF ID => " + id + " <= FOUND!");
         }
 
     }
@@ -105,7 +105,8 @@ public class TerminalCommands {
             }
         }
         if (validation.addParcelValidation(name, size, recipient, sender, state)) {
-            parcelLockerManager.addParcel(name, size, weight, recipient, sender, senderLocker, recipientLocker, state);
+            System.out.println(parcelLockerManager.addParcel(name, size, weight, recipient, sender, senderLocker, recipientLocker, state) != null ?
+                    "PARCEL ADDED" : "LOCKER NOT FOUND!");
         }
 
     }
@@ -113,7 +114,7 @@ public class TerminalCommands {
     public void removeParcel() {
         System.out.println("SELECT ID:");
         String id = scanner.nextLine();
-        parcelLockerManager.removeParcel(id);
+        System.out.println(parcelLockerManager.removeParcel(id) != null ? "PARCEL REMOVED" : "PARCEL OF ID => " + id + " <= NOT FOUND!");
     }
 
     public void displayAllParcelsByLocker() {
@@ -178,7 +179,8 @@ public class TerminalCommands {
             }
         }
         if (validation.updateParcelValidation(name, size, weight, recipient, sender, senderLocker, recipientLocker, state)) {
-            parcelLockerManager.updateParcel(id, name, size, weight, recipient, sender, senderLocker, recipientLocker, state);
+            System.out.println(parcelLockerManager.updateParcel(id, name, size, weight, recipient, sender, senderLocker, recipientLocker, state) != null ?
+                    "PARCEL UPDATED" : "NO PARCEL OF ID => " + id + " <= FOUND!");
         }
 
     }

@@ -9,14 +9,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ParcelLockerManagerTest {
 
-    @Test
-    public void verifyIfAdded() {
-        //given
-        ParcelLockerManager parcelLockerManager = new ParcelLockerManager();
-        //when
-        parcelLockerManager.addLocker(new ParcelLocker("1", "name", new Address("street", "city", "39-100")));
-        //then
-
-    }
-
 }

@@ -81,12 +81,4 @@ public class Validation {
         return true;
     }
 
-//    boolean isLockersListEmpty(List<ParcelLocker>parcelLockers){
-//        if (parcelLockers.isEmpty()){
-//            System.out.println("NO LOCKERS FOUND!");
-//            return false;
-//        }
-//        return true;
-//    }
-
 }

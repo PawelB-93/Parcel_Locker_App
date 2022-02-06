@@ -1,9 +1,6 @@
 package parcel_locker_manager.service;
 
-import parcel_locker_manager.models.Parcel;
-import parcel_locker_manager.models.ParcelLocker;
-import parcel_locker_manager.models.Size;
-import parcel_locker_manager.models.State;
+import parcel_locker_manager.models.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,19 +9,18 @@ public class ParcelLockerManager {
     private final List<ParcelLocker> parcelLockers = new ArrayList<>();
     private final List<Parcel> parcels = new ArrayList<>();
 
-    public void addLocker(ParcelLocker parcelLocker) {
+    public void addLocker(String id, String name, Address address) {
+        ParcelLocker parcelLocker = new ParcelLocker(id, name, address);
         parcelLockers.add(parcelLocker);
     }
 
 
-    public void removeLocker(String id) {
+    public ParcelLocker removeLocker(String id) {
         ParcelLocker lockerToRemove = getLockerById(id);
         if (lockerToRemove != null) {
             parcelLockers.remove(lockerToRemove);
-        } else {
-            System.out.printf("LOCKER OF ID => %s <= NOT FOUND!", id);
-            System.out.println();
         }
+        return lockerToRemove;
     }
 
     public List<ParcelLocker> displayAllLockers() {
@@ -37,31 +33,30 @@ public class ParcelLockerManager {
                 .collect(Collectors.toList());
     }
 
-    public void updateLocker(String id, String name, String street, String city, String postalCode) {
+    public ParcelLocker updateLocker(String id, String name, String street, String city, String postalCode) {
         ParcelLocker parcelLockerToUpdate = getLockerById(id);
-        if (parcelLockerToUpdate == null) {
-            System.out.printf("LOCKER OF ID => %s <= NOT FOUND!", id).println();
-        } else {
+        if (parcelLockerToUpdate != null) {
             parcelLockerToUpdate.setName(name);
             parcelLockerToUpdate.getAddress().setStreet(street);
             parcelLockerToUpdate.getAddress().setCity(city);
             parcelLockerToUpdate.getAddress().setPostalCode(postalCode);
             parcelLockers.set(parcelLockers.indexOf(parcelLockerToUpdate), parcelLockerToUpdate);
         }
+        return parcelLockerToUpdate;
     }
 
-    public void addParcel(String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
+    public Parcel addParcel(String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
+        Parcel parcel = null;
         ParcelLocker sndrLocker = getLockerById(senderLocker);
         ParcelLocker recLocker = getLockerById(recipientLocker);
         if (sndrLocker != null && recLocker != null) {
-            parcels.add(new Parcel(name, size, weight, recipient, sender, sndrLocker, recLocker, state));
-        } else {
-            System.out.println("LOCKER NOT FOUND!");
+            parcel = new Parcel(name, size, weight, recipient, sender, sndrLocker, recLocker, state);
+            parcels.add(parcel);
         }
-
+        return parcel;
     }
 
-    public void removeParcel(String id) {
+    public Parcel removeParcel(String id) {
         UUID uuid = UUID.fromString(id);
         Parcel parcelToRemove = null;
         for (Parcel parcel : parcels) {
@@ -72,38 +67,31 @@ public class ParcelLockerManager {
         }
         if (parcelToRemove != null) {
             parcels.remove(parcelToRemove);
-            System.out.println("PARCEL REMOVED");
-        } else {
-            System.out.printf("PARCEL OF ID => %s <= NOT FOUND!", id).println();
         }
+        return parcelToRemove;
     }
-
 
 
     public List<Parcel> displayAllParcelsByLocker(String id) {
         return parcels.stream().filter(parcel -> id.equals(parcel.getSenderLocker().getId())).collect(Collectors.toList());
     }
 
-    public void updateParcel(String id, String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
-        Parcel parcel = getParcelById(id);
-        if (parcel != null) {
+    public Parcel updateParcel(String id, String name, Size size, double weight, String recipient, String sender, String senderLocker, String recipientLocker, State state) {
+        Parcel parcel = null;
+        ParcelLocker sndrLocker = getLockerById(senderLocker);
+        ParcelLocker rcpLocker = getLockerById(recipientLocker);
+        if (sndrLocker != null && rcpLocker != null) {
+            parcel = getParcelById(id);
+            parcel.setSenderLocker(sndrLocker);
+            parcel.setRecipientLocker(rcpLocker);
             parcel.setName(name);
             parcel.setSize(size);
             parcel.setWeight(weight);
             parcel.setRecipient(recipient);
             parcel.setSender(sender);
-            ParcelLocker sndrLocker = getLockerById(senderLocker);
-            if (sndrLocker != null) {
-                parcel.setSenderLocker(sndrLocker);
-            }
-            ParcelLocker rcpLocker = getLockerById(senderLocker);
-            if (rcpLocker != null) {
-                parcel.setRecipientLocker(rcpLocker);
-            }
             parcels.set(parcels.indexOf(parcel), parcel);
-        } else {
-            System.out.println("PARCEL NOT FOUND!");
         }
+        return parcel;
     }
 
     public ParcelLocker getLockerById(String id) {

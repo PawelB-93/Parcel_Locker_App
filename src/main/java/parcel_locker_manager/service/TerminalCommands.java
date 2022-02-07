@@ -23,8 +23,7 @@ public class TerminalCommands {
         System.out.println("ADD POSTAL CODE:");
         String postalCode = scanner.nextLine();
         if (validation.addLockerValidation(id, name, street, city, postalCode)) {
-            parcelLockerManager.addLocker(id, name, new Address(street, city, postalCode));
-            System.out.println("LOCKER ADDED");
+            System.out.println(parcelLockerManager.addLocker(id, name, new Address(street, city, postalCode)) != null ? "LOCKER ADDED" : "ID IS NOT UNIQUE!");
         }
     }
 

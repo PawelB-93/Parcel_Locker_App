@@ -9,9 +9,14 @@ public class ParcelLockerManager {
     private final List<ParcelLocker> parcelLockers = new ArrayList<>();
     private final List<Parcel> parcels = new ArrayList<>();
 
-    public void addLocker(String id, String name, Address address) {
+    public ParcelLocker addLocker(String id, String name, Address address) {
         ParcelLocker parcelLocker = new ParcelLocker(id, name, address);
-        parcelLockers.add(parcelLocker);
+        boolean isUnique = parcelLockers.stream().map(locker -> id.equals(locker.getId())).findAny().orElse(Boolean.FALSE);
+        if (!isUnique) {
+            parcelLockers.add(parcelLocker);
+            return parcelLocker;
+        }
+        return null;
     }
 
 
@@ -89,6 +94,7 @@ public class ParcelLockerManager {
             parcel.setWeight(weight);
             parcel.setRecipient(recipient);
             parcel.setSender(sender);
+            parcel.setState(state);
             parcels.set(parcels.indexOf(parcel), parcel);
         }
         return parcel;

@@ -66,6 +66,16 @@ public class Terminal {
                 }
 
                 case "10": {
+                    terminalCommands.displayAllParcelsBySender();
+                    getCommands();
+                    break;
+                }
+                case "11": {
+                    terminalCommands.displayAllParcelsByRecipient();
+                    getCommands();
+                    break;
+                }
+                case "12": {
                     System.out.println("CLOSING PROGRAM...");
                     return;
                 }
@@ -87,6 +97,8 @@ public class Terminal {
                 "[7]. REMOVE PARCEL\n" +
                 "[8]. DISPLAY PARCELS BY PARCEL LOCKER\n" +
                 "[9]. UPDATE PARCEL\n" +
-                "[10]. EXIT PROGRAM");
+                "[10]. DISPLAY PARCELS BY SENDER\n" +
+                "[11]. DISPLAY PARCELS BY RECIPIENT\n" +
+                "[12]. EXIT PROGRAM");
     }
 }

@@ -181,6 +181,19 @@ public class TerminalCommands {
             System.out.println(parcelLockerManager.updateParcel(id, name, size, weight, recipient, sender, senderLocker, recipientLocker, state) != null ?
                     "PARCEL UPDATED" : "NO PARCEL OF ID => " + id + " <= FOUND!");
         }
+    }
 
+    public void displayAllParcelsBySender() {
+        System.out.println("SELECT SENDER:");
+        String sender = scanner.nextLine();
+        List<Parcel> parcels = parcelLockerManager.displayAllParcelsByLocker(sender);
+        System.out.println(!parcels.isEmpty() ? parcels : "NO PARCELS FOUND!");
+    }
+
+    public void displayAllParcelsByRecipient() {
+        System.out.println("SELECT RECIPIENT:");
+        String recipient = scanner.nextLine();
+        List<Parcel> parcels = parcelLockerManager.getAllParcelsByRecipient(recipient);
+        System.out.println(!parcels.isEmpty() ? parcels : "NO PARCELS FOUND!");
     }
 }

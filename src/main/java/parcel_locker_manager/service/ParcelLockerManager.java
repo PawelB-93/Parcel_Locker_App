@@ -122,4 +122,12 @@ public class ParcelLockerManager {
         }
         return parcel;
     }
+
+    public List<Parcel> getAllParcelsBySender(String sender) {
+        return parcels.stream().filter(parcel -> sender.equals(parcel.getSender())).collect(Collectors.toList());
+    }
+
+    public List<Parcel> getAllParcelsByRecipient(String recipient) {
+        return parcels.stream().filter(parcel -> recipient.equals(parcel.getRecipient())).collect(Collectors.toList());
+    }
 }
